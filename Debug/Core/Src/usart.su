@@ -1,0 +1,5 @@
+usart.c:32:6:MX_USART2_UART_Init	8	static
+usart.c:53:6:MX_USART3_UART_Init	8	static
+usart.c:73:6:HAL_UART_MspInit	56	static
+usart.c:127:6:HAL_UART_MspDeInit	16	static
+usart.c:172:5:__io_putchar	24	static

@@ -28,7 +28,6 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <string.h>
-
 #include "mpu6050.h"
 #include "vl53l0x_api.h"
 /* USER CODE END Includes */

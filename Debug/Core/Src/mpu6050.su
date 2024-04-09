@@ -1,0 +1,3 @@
+mpu6050.c:18:6:MPU6050_Init	32	static
+mpu6050.c:36:6:MPU6050_ReadAccelerometerRaw	48	static
+mpu6050.c:46:6:MPU6050_ReadGyrscopeRaw	48	static

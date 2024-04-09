@@ -21,7 +21,7 @@ void MPU6050_Init(){
 
 	  // GYRO CONFIG
 	  uint8_t select_data = FS_SEL_GYRO_500;
-	  ret = HAL_I2C_Mem_Write(&hi2c2, MPU6050_ADDRESS,GYRO_CONFIG, 1, &select_data, 1, I2C_TIMEOUT);
+	  HAL_I2C_Mem_Write(&hi2c2, MPU6050_ADDRESS,GYRO_CONFIG, 1, &select_data, 1, I2C_TIMEOUT);
 
 	  // ACCEL CONFIG
 	  select_data =  AFS_SEL_ACC_4G;
