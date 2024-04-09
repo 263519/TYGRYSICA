@@ -28,8 +28,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <string.h>
-#include "mpu6050.h"
 #include "vl53l0x_api.h"
+#include "mpu6050.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -50,6 +50,7 @@
 
 /* USER CODE BEGIN PV */
 int16_t acc_x, acc_y, acc_z, gyr_x, gyr_y, gyr_z;
+int tof2_distance;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -100,7 +101,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
   MPU6050_Init();
-
+  VL53L0X_Init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -108,11 +109,15 @@ int main(void)
   while (1)
   {
 
-	  MPU6050_ReadAccelerometerRaw(&acc_x, &acc_y, &acc_z);
-	  printf("acc_x: %d, acc_y: %d,acc_z: %d\r\n",acc_x, acc_y, acc_z);
-	  MPU6050_ReadAccelerometerRaw(&gyr_x, &gyr_y, &gyr_z);
-	  printf("gyr_x: %d, gyr_y: %d,gyr_z: %d\r\n",gyr_x, gyr_y, gyr_z);
-	  HAL_Delay(1000);
+//	  MPU6050_ReadAccelerometerRaw(&acc_x, &acc_y, &acc_z);
+//	  printf("acc_x: %d, acc_y: %d,acc_z: %d\r\n",acc_x, acc_y, acc_z);
+//	  MPU6050_ReadAccelerometerRaw(&gyr_x, &gyr_y, &gyr_z);
+//	  printf("gyr_x: %d, gyr_y: %d,gyr_z: %d\r\n",gyr_x, gyr_y, gyr_z);
+//	  HAL_Delay(1000);
+//	  HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+
+	  VL53L0X_MeasureDistance(&tof2_distance);
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

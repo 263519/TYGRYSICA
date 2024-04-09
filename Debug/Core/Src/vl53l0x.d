@@ -1,4 +1,12 @@
-Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
+Core/Src/vl53l0x.o: ../Core/Src/vl53l0x.c ../Core/Inc/vl53l0x.h \
+ ../Drivers/VL53L0X/Api/core/inc/vl53l0x_api.h \
+ ../Drivers/VL53L0X/Api/core/inc/vl53l0x_api_strings.h \
+ ../Drivers/VL53L0X/Api/core/inc/vl53l0x_def.h \
+ ../Drivers/VL53L0X/Api/core/inc/vl53l0x_device.h \
+ ../Drivers/VL53L0X/Api/platform/inc/vl53l0x_types.h \
+ ../Drivers/VL53L0X/Api/platform/inc/vl53l0x_platform.h \
+ ../Drivers/VL53L0X/Api/core/inc/vl53l0x_def.h \
+ ../Drivers/VL53L0X/Api/platform/inc/vl53l0x_platform_log.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h \
  ../Core/Inc/stm32f3xx_hal_conf.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_rcc.h \
@@ -31,19 +39,25 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim_ex.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_uart.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_uart_ex.h \
- ../Core/Inc/adc.h ../Core/Inc/main.h ../Core/Inc/i2c.h ../Core/Inc/tim.h \
- ../Core/Inc/usart.h ../Core/Inc/gpio.h \
- ../Drivers/VL53L0X/Api/core/inc/vl53l0x_api.h \
- ../Drivers/VL53L0X/Api/core/inc/vl53l0x_api_strings.h \
- ../Drivers/VL53L0X/Api/core/inc/vl53l0x_def.h \
- ../Drivers/VL53L0X/Api/core/inc/vl53l0x_device.h \
- ../Drivers/VL53L0X/Api/platform/inc/vl53l0x_types.h \
- ../Drivers/VL53L0X/Api/platform/inc/vl53l0x_platform.h \
- ../Drivers/VL53L0X/Api/core/inc/vl53l0x_def.h \
- ../Drivers/VL53L0X/Api/platform/inc/vl53l0x_platform_log.h \
- ../Core/Inc/mpu6050.h
+ ../Core/Inc/usart.h ../Core/Inc/main.h ../Core/Inc/i2c.h
 
-../Core/Inc/main.h:
+../Core/Inc/vl53l0x.h:
+
+../Drivers/VL53L0X/Api/core/inc/vl53l0x_api.h:
+
+../Drivers/VL53L0X/Api/core/inc/vl53l0x_api_strings.h:
+
+../Drivers/VL53L0X/Api/core/inc/vl53l0x_def.h:
+
+../Drivers/VL53L0X/Api/core/inc/vl53l0x_device.h:
+
+../Drivers/VL53L0X/Api/platform/inc/vl53l0x_types.h:
+
+../Drivers/VL53L0X/Api/platform/inc/vl53l0x_platform.h:
+
+../Drivers/VL53L0X/Api/core/inc/vl53l0x_def.h:
+
+../Drivers/VL53L0X/Api/platform/inc/vl53l0x_platform_log.h:
 
 ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:
 
@@ -109,32 +123,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 
 ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_uart_ex.h:
 
-../Core/Inc/adc.h:
+../Core/Inc/usart.h:
 
 ../Core/Inc/main.h:
 
 ../Core/Inc/i2c.h:
-
-../Core/Inc/tim.h:
-
-../Core/Inc/usart.h:
-
-../Core/Inc/gpio.h:
-
-../Drivers/VL53L0X/Api/core/inc/vl53l0x_api.h:
-
-../Drivers/VL53L0X/Api/core/inc/vl53l0x_api_strings.h:
-
-../Drivers/VL53L0X/Api/core/inc/vl53l0x_def.h:
-
-../Drivers/VL53L0X/Api/core/inc/vl53l0x_device.h:
-
-../Drivers/VL53L0X/Api/platform/inc/vl53l0x_types.h:
-
-../Drivers/VL53L0X/Api/platform/inc/vl53l0x_platform.h:
-
-../Drivers/VL53L0X/Api/core/inc/vl53l0x_def.h:
-
-../Drivers/VL53L0X/Api/platform/inc/vl53l0x_platform_log.h:
-
-../Core/Inc/mpu6050.h:

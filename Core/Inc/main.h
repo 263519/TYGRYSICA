@@ -68,11 +68,10 @@ void Error_Handler(void);
 #define LD2_GPIO_Port GPIOA
 #define SHARP_Pin GPIO_PIN_6
 #define SHARP_GPIO_Port GPIOA
-#define TOF1_INT_Pin GPIO_PIN_4
-#define TOF1_INT_GPIO_Port GPIOC
-#define TOF1_INT_EXTI_IRQn EXTI4_IRQn
-#define TOF2_INT_Pin GPIO_PIN_5
-#define TOF2_INT_GPIO_Port GPIOC
+#define GPIO1_TOF1_Pin GPIO_PIN_4
+#define GPIO1_TOF1_GPIO_Port GPIOC
+#define GPIO1_TOF2_Pin GPIO_PIN_5
+#define GPIO1_TOF2_GPIO_Port GPIOC
 #define DIR_MOTOR1_A_Pin GPIO_PIN_1
 #define DIR_MOTOR1_A_GPIO_Port GPIOB
 #define DIR_MOTOR1_B_Pin GPIO_PIN_2
