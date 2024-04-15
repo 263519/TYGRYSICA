@@ -15,7 +15,8 @@ C_SRCS += \
 ../Core/Src/sysmem.c \
 ../Core/Src/system_stm32f3xx.c \
 ../Core/Src/tim.c \
-../Core/Src/usart.c 
+../Core/Src/usart.c \
+../Core/Src/vl53l0x.c 
 
 OBJS += \
 ./Core/Src/adc.o \
@@ -29,7 +30,8 @@ OBJS += \
 ./Core/Src/sysmem.o \
 ./Core/Src/system_stm32f3xx.o \
 ./Core/Src/tim.o \
-./Core/Src/usart.o 
+./Core/Src/usart.o \
+./Core/Src/vl53l0x.o 
 
 C_DEPS += \
 ./Core/Src/adc.d \
@@ -43,7 +45,8 @@ C_DEPS += \
 ./Core/Src/sysmem.d \
 ./Core/Src/system_stm32f3xx.d \
 ./Core/Src/tim.d \
-./Core/Src/usart.d 
+./Core/Src/usart.d \
+./Core/Src/vl53l0x.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -71,4 +74,6 @@ Core/Src/tim.o: ../Core/Src/tim.c
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32F303xE -DDEBUG -c -I../Core/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -I../Drivers/VL53L0X/Api/core/inc -I../Drivers/VL53L0X/Api/platform/inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/tim.d" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
 Core/Src/usart.o: ../Core/Src/usart.c
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32F303xE -DDEBUG -c -I../Core/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -I../Drivers/VL53L0X/Api/core/inc -I../Drivers/VL53L0X/Api/platform/inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/usart.d" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
+Core/Src/vl53l0x.o: ../Core/Src/vl53l0x.c
+	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32F303xE -DDEBUG -c -I../Core/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -I../Drivers/VL53L0X/Api/core/inc -I../Drivers/VL53L0X/Api/platform/inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/vl53l0x.d" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
 
