@@ -169,15 +169,9 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 /*!
  * Redefiniton of function _write to print things on a serial port
  */
-int __io_putchar(int ch)
-{
-    if (ch == '\n') {
-        uint8_t ch2 = '\r';
-        HAL_UART_Transmit(&huart2, &ch2, 1, HAL_MAX_DELAY);
-    }
-
-    HAL_UART_Transmit(&huart2, (uint8_t*)&ch, 1, HAL_MAX_DELAY);
-    return 1;
+int _write(int file, char *ptr, int len){
+	HAL_UART_Transmit(&huart3, ptr, len, 50);
+	return len;
 }
 
 /* USER CODE END 1 */

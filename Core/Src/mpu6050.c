@@ -22,11 +22,10 @@ void MPU6050_Init(){
 	  // try to connect once, timeout 100 ms
 	  HAL_I2C_IsDeviceReady(&hi2c2,MPU6050_ADDRESS, 1, I2C_TIMEOUT);
 
+	  MPU6050_SelectGyrscopeAccelerometerRatio(AFS_SEL_ACC_2G, FS_SEL_GYRO_250);
 	  // EXIT SLEEP MODE
 	  uint8_t select_data = 0;
 	  HAL_I2C_Mem_Write(&hi2c2, MPU6050_ADDRESS, PWR_MGMT_1, 1, &select_data, 1, I2C_TIMEOUT);
-
-	  MPU6050_SelectGyrscopeAccelerometerRatio(AFS_SEL_ACC_2G, FS_SEL_GYRO_250);
 
 }
 

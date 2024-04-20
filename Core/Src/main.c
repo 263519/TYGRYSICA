@@ -49,7 +49,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-int16_t acc_x, acc_y, acc_z, gyr_x, gyr_y, gyr_z;
+float acc_x, acc_y, acc_z, gyr_x, gyr_y, gyr_z;
 int tof2_distance;
 /* USER CODE END PV */
 
@@ -109,15 +109,22 @@ int main(void)
   while (1)
   {
 
+
 	  MPU6050_ReadAccelerometerScaled(&acc_x, &acc_y, &acc_z);
-	  printf("acc_x: %d, acc_y: %d,acc_z: %d\r\n",acc_x, acc_y, acc_z);
+	  printf("acc_x: %f, acc_y: %f,acc_z: %f\r\n",acc_x, acc_y, acc_z);
 	  MPU6050_ReadAccelerometerScaled(&gyr_x, &gyr_y, &gyr_z);
-	  printf("gyr_x: %d, gyr_y: %d,gyr_z: %d\r\n",gyr_x, gyr_y, gyr_z);
-	  HAL_Delay(1000);
-	  HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+	  printf("gyr_x: %f, gyr_y: %f,gyr_z: %f\r\n",gyr_x, gyr_y, gyr_z);
+
+
+//	  MPU6050_ReadAccelerometerRaw(&acc_x, &acc_y, &acc_z);
+//	  printf("acc_x: %d, acc_y: %d,acc_z: %d\r\n",acc_x, acc_y, acc_z);
+//	  MPU6050_ReadAccelerometerRaw(&gyr_x, &gyr_y, &gyr_z);
+//	  printf("gyr_x: %d, gyr_y: %d,gyr_z: %d\r\n",gyr_x, gyr_y, gyr_z);
 
 	  VL53L0X_MeasureDistance(&tof2_distance);
 
+	  HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+	  HAL_Delay(1000);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
