@@ -8,8 +8,7 @@
  */
 
 
-#include "stm32f3xx_hal.h"
-#include "i2c.h"
+
 #include "mpu6050.h"
 
 extern I2C_HandleTypeDef hi2c2;
@@ -110,6 +109,17 @@ void MPU6050_ReadAccelerometerScaled(float *x, float *y, float *z){
 	*z = (float)acc_y / acc_scale;
 }
 
+void MPU6050_GetRP(float *r, float *p){
+	float a_x, a_y, a_z;
+	MPU6050_ReadAccelerometerScaled(&a_x, &a_y, &a_z);
+
+	*r = atan2(a_y, a_z) * 180.0 / M_PI;
+	*p = -(atan2(a_x, sqrt(a_y*a_y + a_z*a_z)) * 180.0) / M_PI;
+
+	*r += 135.0f;
+	*p += 69.0f;
+
+}
 
 
 

@@ -5,12 +5,15 @@
  *      Authors: Szymon Wesołowski, Michał Suski
  *      Based on : msalamon.pl
  */
-#include <stdio.h>
+
 
 #ifndef INC_MPU6050_H_
 #define INC_MPU6050_H_
 
-
+#include <stdio.h>
+#include <math.h>
+#include "stm32f3xx_hal.h"
+#include "i2c.h"
 
 
 #define MPU6050_ADDRESS 0xD0	// AD0 - low
@@ -43,16 +46,20 @@
 #define GYRO_YOUT_H 0x45
 #define GYRO_ZOUT_H 0x47
 
+// config functions
+void MPU6050_SelectGyrscopeAccelerometerRatio(uint8_t acc_scale, uint8_t gyro_scale);
+void MPU6050_Init();
+void MPU6050_Read();
+
 // functions to read imu values
 void MPU6050_ReadAccelerometerRaw(int16_t *x, int16_t *y, int16_t *z);
 void MPU6050_ReadGyrscopeRaw(int16_t *x, int16_t *y, int16_t *z);
 void MPU6050_ReadGyroscopeScaled(float *x, float *y, float *z);
 void MPU6050_ReadAccelerometerScaled(float *x, float *y, float *z);
-
-void MPU6050_SelectGyrscopeAccelerometerRatio(uint8_t acc_scale, uint8_t gyro_scale);
-
+void MPU6050_GetRP(float *r, float *p);
 
 
-void MPU6050_Init();
-void MPU6050_Read();
+
+
+
 #endif /* INC_MPU6050_H_ */

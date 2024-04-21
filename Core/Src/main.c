@@ -49,7 +49,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-float acc_x, acc_y, acc_z, gyr_x, gyr_y, gyr_z;
+float acc_x, acc_y, acc_z, gyr_x, gyr_y, gyr_z,r,p;
 int tof2_distance;
 /* USER CODE END PV */
 
@@ -110,11 +110,12 @@ int main(void)
   {
 
 
-	  MPU6050_ReadAccelerometerScaled(&acc_x, &acc_y, &acc_z);
-	  printf("acc_x: %f, acc_y: %f,acc_z: %f\r\n",acc_x, acc_y, acc_z);
-	  MPU6050_ReadAccelerometerScaled(&gyr_x, &gyr_y, &gyr_z);
-	  printf("gyr_x: %f, gyr_y: %f,gyr_z: %f\r\n",gyr_x, gyr_y, gyr_z);
-
+//	  MPU6050_ReadAccelerometerScaled(&acc_x, &acc_y, &acc_z);
+//	  printf("acc_x: %f, acc_y: %f,acc_z: %f\r\n",acc_x, acc_y, acc_z);
+//	  MPU6050_ReadAccelerometerScaled(&gyr_x, &gyr_y, &gyr_z);
+//	  printf("gyr_x: %f, gyr_y: %f,gyr_z: %f\r\n",gyr_x, gyr_y, gyr_z);
+	  MPU6050_GetRP(&r, &p);
+	  printf("Roll: %f, Pitch: %f\r\n", r, p);
 
 //	  MPU6050_ReadAccelerometerRaw(&acc_x, &acc_y, &acc_z);
 //	  printf("acc_x: %d, acc_y: %d,acc_z: %d\r\n",acc_x, acc_y, acc_z);

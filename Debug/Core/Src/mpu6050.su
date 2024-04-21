@@ -1,6 +1,7 @@
-mpu6050.c:21:6:MPU6050_Init	32	static
-mpu6050.c:32:6:MPU6050_ReadAccelerometerRaw	48	static
-mpu6050.c:42:6:MPU6050_ReadGyrscopeRaw	48	static
-mpu6050.c:52:6:MPU6050_SelectGyrscopeAccelerometerRatio	40	static
-mpu6050.c:95:6:MPU6050_ReadGyroscopeScaled	32	static
-mpu6050.c:104:6:MPU6050_ReadAccelerometerScaled	32	static
+mpu6050.c:20:6:MPU6050_Init	32	static
+mpu6050.c:31:6:MPU6050_ReadAccelerometerRaw	48	static
+mpu6050.c:41:6:MPU6050_ReadGyrscopeRaw	48	static
+mpu6050.c:51:6:MPU6050_SelectGyrscopeAccelerometerRatio	40	static
+mpu6050.c:94:6:MPU6050_ReadGyroscopeScaled	32	static
+mpu6050.c:103:6:MPU6050_ReadAccelerometerScaled	32	static
+mpu6050.c:112:6:MPU6050_GetRP	48	static
