@@ -20,6 +20,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "adc.h"
+#include "dma.h"
 #include "i2c.h"
 #include "tim.h"
 #include "usart.h"
@@ -31,6 +32,7 @@
 #include "vl53l0x_api.h"
 #include "mpu6050.h"
 #include "stm_esp_transfer.h"
+#include "sharp.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -44,7 +46,7 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-
+//#define CONVERT_ADC_TO_DISTANCE(adc_val)	((37376UL / adc_val) - 4)
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -53,9 +55,11 @@
 float acc_x, acc_y, acc_z, gyr_x, gyr_y, gyr_z,r,p;
 int tof2_distance;
 uint8_t xd=69;
+uint32_t adc_measurement;
+volatile uint32_t distance_cm;
+//uint32_t dist;
 
 /* USER CODE END PV */
-
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
@@ -95,6 +99,7 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_USART2_UART_Init();
   MX_ADC2_Init();
   MX_I2C2_Init();
@@ -106,6 +111,10 @@ int main(void)
   uint8_t mhm[] = "10";
   MPU6050_Init();
   VL53L0X_Init();
+  HAL_ADC_Start_IT(&hadc2);
+//  HAL_ADC_Start_DMA(&hadc2, &adc_measurement, 1);
+//  HAL_TIM_Base_Start(&htim1);
+  //SHARP_Init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -121,12 +130,13 @@ int main(void)
 	 // MPU6050_GetRP(&r, &p);
 	 // printf("%d", xd);
 
-
-
+	  HAL_ADC_Start_IT(&hadc2);
+	  //dist = get_distance();
 	  	//uint16_t xpp = 257;
+	  printf("Distance: %d\r\n", distance_cm);
 
 
-	  msg_t_Transmit();
+	  //msg_t_Transmit();
 
 
 	 // msg_t_Transmit(&msg);
@@ -199,7 +209,12 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc) {
+//	if (hadc == &hadc2) {
+//		adc_measurement = 1;
+		distance_cm = HAL_ADC_GetValue(&hadc2);
+//	}
+}
 /* USER CODE END 4 */
 
 /**
@@ -210,6 +225,7 @@ void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
+
 
   /* USER CODE END Error_Handler_Debug */
 }

@@ -5,10 +5,12 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../Core/Src/adc.c \
+../Core/Src/dma.c \
 ../Core/Src/gpio.c \
 ../Core/Src/i2c.c \
 ../Core/Src/main.c \
 ../Core/Src/mpu6050.c \
+../Core/Src/sharp.c \
 ../Core/Src/stm32f3xx_hal_msp.c \
 ../Core/Src/stm32f3xx_it.c \
 ../Core/Src/stm_esp_transfer.c \
@@ -21,10 +23,12 @@ C_SRCS += \
 
 OBJS += \
 ./Core/Src/adc.o \
+./Core/Src/dma.o \
 ./Core/Src/gpio.o \
 ./Core/Src/i2c.o \
 ./Core/Src/main.o \
 ./Core/Src/mpu6050.o \
+./Core/Src/sharp.o \
 ./Core/Src/stm32f3xx_hal_msp.o \
 ./Core/Src/stm32f3xx_it.o \
 ./Core/Src/stm_esp_transfer.o \
@@ -37,10 +41,12 @@ OBJS += \
 
 C_DEPS += \
 ./Core/Src/adc.d \
+./Core/Src/dma.d \
 ./Core/Src/gpio.d \
 ./Core/Src/i2c.d \
 ./Core/Src/main.d \
 ./Core/Src/mpu6050.d \
+./Core/Src/sharp.d \
 ./Core/Src/stm32f3xx_hal_msp.d \
 ./Core/Src/stm32f3xx_it.d \
 ./Core/Src/stm_esp_transfer.d \
@@ -55,6 +61,8 @@ C_DEPS += \
 # Each subdirectory must supply rules for building sources it contributes
 Core/Src/adc.o: ../Core/Src/adc.c
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32F303xE -DDEBUG -c -I../Core/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -I../Drivers/VL53L0X/Api/core/inc -I../Drivers/VL53L0X/Api/platform/inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/adc.d" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
+Core/Src/dma.o: ../Core/Src/dma.c
+	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32F303xE -DDEBUG -c -I../Core/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -I../Drivers/VL53L0X/Api/core/inc -I../Drivers/VL53L0X/Api/platform/inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/dma.d" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
 Core/Src/gpio.o: ../Core/Src/gpio.c
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32F303xE -DDEBUG -c -I../Core/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -I../Drivers/VL53L0X/Api/core/inc -I../Drivers/VL53L0X/Api/platform/inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/gpio.d" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
 Core/Src/i2c.o: ../Core/Src/i2c.c
@@ -63,6 +71,8 @@ Core/Src/main.o: ../Core/Src/main.c
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32F303xE -DDEBUG -c -I../Core/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -I../Drivers/VL53L0X/Api/core/inc -I../Drivers/VL53L0X/Api/platform/inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
 Core/Src/mpu6050.o: ../Core/Src/mpu6050.c
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32F303xE -DDEBUG -c -I../Core/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -I../Drivers/VL53L0X/Api/core/inc -I../Drivers/VL53L0X/Api/platform/inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/mpu6050.d" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
+Core/Src/sharp.o: ../Core/Src/sharp.c
+	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32F303xE -DDEBUG -c -I../Core/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -I../Drivers/VL53L0X/Api/core/inc -I../Drivers/VL53L0X/Api/platform/inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/sharp.d" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
 Core/Src/stm32f3xx_hal_msp.o: ../Core/Src/stm32f3xx_hal_msp.c
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32F303xE -DDEBUG -c -I../Core/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -I../Drivers/VL53L0X/Api/core/inc -I../Drivers/VL53L0X/Api/platform/inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/stm32f3xx_hal_msp.d" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
 Core/Src/stm32f3xx_it.o: ../Core/Src/stm32f3xx_it.c
