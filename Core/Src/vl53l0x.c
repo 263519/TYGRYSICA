@@ -28,7 +28,7 @@ void VL53L0X_Init(){
 
 	  MessageLen = sprintf((char*)Message, "VL53L0X test\n\r");
 
-	  MessageLen = sprintf((char*)Message, "msalamon.pl VL53L0X test\n\r");
+	  MessageLen = sprintf((char*)Message, "VL53L0X test\n\r");
 
 	  HAL_UART_Transmit(&huart2, Message, MessageLen, 100);
 
@@ -70,8 +70,8 @@ void VL53L0X_MeasureDistance(int *distance){
 		  if(RangingData.RangeStatus == 0)
 		  {
 			  MessageLen = sprintf((char*)Message, "Measured distance: %i\n\r", RangingData.RangeMilliMeter);
-			  HAL_UART_Transmit(&huart3, Message, MessageLen, 100);
-
+			  //HAL_UART_Transmit(&huart2, Message, MessageLen, 100);
+			  *distance = RangingData.RangeMilliMeter;
 		  }
 }
 

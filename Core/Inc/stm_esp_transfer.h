@@ -13,17 +13,17 @@
 #include "usart.h"
 #include "mpu6050.h"
 
-typedef struct msg_struct{
-//	int16_t roll;
-//	int16_t pitch;
-	uint8_t sharp_distance;
-//	uint8_t tof1_distance;
-//	uint8_t tof2_distance;
+typedef struct {
+	float roll;
+	float pitch;
+	uint16_t sharp_distance;
+	int tof1_distance;
+	int tof2_distance;
 
 
 }msg_t;
 
-void msg_t_Transmit();
+void msg_t_Transmit(msg_t *msg);
 void msg_t_SaveData(msg_t *msg);
 
 #endif /* INC_STM_ESP_TRANSFER_H_ */
