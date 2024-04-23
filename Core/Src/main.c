@@ -31,6 +31,7 @@
 #include "vl53l0x_api.h"
 #include "mpu6050.h"
 #include "stm_esp_transfer.h"
+#include "sharp.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -44,15 +45,21 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-
+//#define CONVERT_ADC_TO_DISTANCE(adc_val)	((37376UL / adc_val) - 4)
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
 float acc_x, acc_y, acc_z, gyr_x, gyr_y, gyr_z,r,p;
+int16_t a_x, a_y, a_z;
 int tof2_distance;
+volatile uint16_t adc_value;
+volatile int adc_flag;
 uint8_t xd=69;
+uint32_t adc_measurement;
+
+//uint32_t dist;
 
 /* USER CODE END PV */
 
@@ -106,6 +113,10 @@ int main(void)
   uint8_t mhm[] = "10";
   MPU6050_Init();
   VL53L0X_Init();
+  HAL_ADC_Start_IT(&hadc2);
+//  HAL_ADC_Start_DMA(&hadc2, &adc_measurement, 1);
+//  HAL_TIM_Base_Start(&htim1);
+  //SHARP_Init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -118,27 +129,43 @@ int main(void)
 //	  printf("acc_x: %f, acc_y: %f,acc_z: %f\r\n",acc_x, acc_y, acc_z);
 //	  MPU6050_ReadAccelerometerScaled(&gyr_x, &gyr_y, &gyr_z);
 //	  printf("gyr_x: %f, gyr_y: %f,gyr_z: %f\r\n",gyr_x, gyr_y, gyr_z);
-	 // MPU6050_GetRP(&r, &p);
+
 	 // printf("%d", xd);
-
-
-
+//	    if (adc_flag == 1) {
+//	    	adc_flag = 0;
+//	    	//printf( "Zadana wartosc to : %d\n" , dac_value);
+//		    printf( "Zmierzona wartosc to : %d\r\n" , adc_value);
+//
+//		    //dac_value += 50;
+//		   // dac_value %= 300;
+//		   // HAL_DAC_SetValue(&hdac1, DAC1_CHANNEL_1, DAC_ALIGN_8B_R,dac_value);
+//
+//		    HAL_ADC_Start_IT(&hadc2);
+//	    }
+	//	   HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+		   HAL_Delay(300);
+	  //dist = get_distance();
 	  	//uint16_t xpp = 257;
 
 
-	  msg_t_Transmit();
+
+	  //msg_t_Transmit();
 
 
 	 // msg_t_Transmit(&msg);
-//	  MPU6050_ReadAccelerometerRaw(&acc_x, &acc_y, &acc_z);
-//	  printf("acc_x: %d, acc_y: %d,acc_z: %d\r\n",acc_x, acc_y, acc_z);
+//  MPU6050_ReadAccelerometerScaled(&acc_x, &acc_y, &acc_z);
+//  printf("a_x: %fg, a_y: %fg,a_z: %fg\r\n",acc_x, acc_y, acc_z);
+//  MPU6050_ReadAccelerometerRaw(&a_x, &a_y, &a_z);
+//  printf("SSa_x: %d, a_y: %d,a_z: %d\r\n",a_x, a_y, a_z);
+  MPU6050_GetRP(&r, &p);
+  printf("roll: %f, pitch: %f\r\n",r,p);
 //	  MPU6050_ReadAccelerometerRaw(&gyr_x, &gyr_y, &gyr_z);
 //	  printf("gyr_x: %d, gyr_y: %d,gyr_z: %d\r\n",gyr_x, gyr_y, gyr_z);
 
 //	  VL53L0X_MeasureDistance(&tof2_distance);
 //
 //	  HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
-  HAL_Delay(1000);
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -199,7 +226,12 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc) {
+	if (hadc == &hadc2) {
+		adc_flag = 1;
+		adc_value = HAL_ADC_GetValue(&hadc2);
+	}
+}
 /* USER CODE END 4 */
 
 /**
@@ -210,6 +242,7 @@ void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
+
 
   /* USER CODE END Error_Handler_Debug */
 }

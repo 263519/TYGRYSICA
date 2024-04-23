@@ -97,16 +97,16 @@ void MPU6050_ReadGyroscopeScaled(float *x, float *y, float *z){
 
 	*x = (float)gyr_x / gyr_scale;
 	*y = (float)gyr_y / gyr_scale;
-	*z = (float)gyr_y / gyr_scale;
+	*z = (float)gyr_z / gyr_scale;
 }
 
 void MPU6050_ReadAccelerometerScaled(float *x, float *y, float *z){
 	int16_t acc_x, acc_y, acc_z;
 	MPU6050_ReadAccelerometerRaw(&acc_x, &acc_y, &acc_z);
 
-	*x = (float)acc_x / acc_scale;
-	*y = (float)acc_y / acc_scale;
-	*z = (float)acc_y / acc_scale;
+	*x = ((float)acc_x) / acc_scale;
+	*y = ((float)acc_y) / acc_scale;
+	*z = ((float)acc_z) / acc_scale;
 }
 
 void MPU6050_GetRP(float *r, float *p){
@@ -116,8 +116,8 @@ void MPU6050_GetRP(float *r, float *p){
 	*r = atan2(a_y, a_z) * 180.0 / M_PI;
 	*p = -(atan2(a_x, sqrt(a_y*a_y + a_z*a_z)) * 180.0) / M_PI;
 
-	*r += 135.0f;
-	*p += 69.0f;
+	*r+=180;
+
 
 }
 
