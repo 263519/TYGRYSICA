@@ -110,8 +110,6 @@ void Error_Handler(void);
 #define STM_TX_GPIO_Port GPIOC
 #define STM_RX_Pin GPIO_PIN_11
 #define STM_RX_GPIO_Port GPIOC
-#define DIR_MOTOR2_A_Pin GPIO_PIN_3
-#define DIR_MOTOR2_A_GPIO_Port GPIOB
 #define DIR_MOTOR2_B_Pin GPIO_PIN_4
 #define DIR_MOTOR2_B_GPIO_Port GPIOB
 #define ENC1_A_Pin GPIO_PIN_7

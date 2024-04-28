@@ -1,0 +1,3 @@
+motor.c:10:6:MOTOR1_init	8	static
+motor.c:16:6:MOTOR1_set_dir	16	static
+motor.c:28:6:MOTOR1_set_speed	16	static

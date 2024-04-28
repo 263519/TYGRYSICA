@@ -58,7 +58,9 @@ int16_t a_x, a_y, a_z;
 int tof2_distance;
 volatile uint16_t adc_value;
 volatile int adc_flag;
-
+uint16_t sharp;
+float roll;
+float pitch;
 
 
 
@@ -116,7 +118,9 @@ int main(void)
 
   MPU6050_Init();
   VL53L0X_Init();
+  VL53L0X_Init2();
   HAL_ADC_Start_IT(&hadc2);
+  int speed = 0;
 //  HAL_ADC_Start_DMA(&hadc2, &adc_measurement, 1);
 //  HAL_TIM_Base_Start(&htim1);
   //SHARP_Init();
@@ -127,7 +131,10 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  if(speed>500)
+		  speed = 0;
 
+	  speed++;
 	 // int temp = msg->sharp_distance;
 	 // printf("Dip");
 //	  MPU6050_ReadAccelerometerScaled(&acc_x, &acc_y, &acc_z);
@@ -152,10 +159,18 @@ int main(void)
 //	  msg_t_Transmit(&msg);
 //      HAL_Delay(300);
 	  //dist = get_distance();
-
+	  HAL_ADC_Start_IT(&hadc2);
+	  msg->sharp_distance=adc_value;
+	  msg->speed1 = speed;
 	  msg_t_SaveData(msg);
 	  msg_t_Transmit(msg);
-	  HAL_Delay(1000);
+	  sharp=msg->sharp_distance;
+	  roll=msg->roll;
+	  pitch=msg->pitch;
+//	  printf("jprdl\n");
+
+
+	//  HAL_Delay(1000);
 	  //msg_t_Transmit();
 
 

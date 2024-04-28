@@ -42,7 +42,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/VL53L0X/Api/core/inc/vl53l0x_def.h \
  ../Drivers/VL53L0X/Api/platform/inc/vl53l0x_platform_log.h \
  ../Core/Inc/mpu6050.h ../Core/Inc/i2c.h ../Core/Inc/stm_esp_transfer.h \
- ../Core/Inc/usart.h ../Core/Inc/mpu6050.h ../Core/Inc/sharp.h
+ ../Core/Inc/usart.h ../Core/Inc/mpu6050.h ../Core/Inc/sharp.h \
+ ../Core/Inc/adc.h ../Core/Inc/sharp.h
 
 ../Core/Inc/main.h:
 
@@ -147,5 +148,9 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Inc/usart.h:
 
 ../Core/Inc/mpu6050.h:
+
+../Core/Inc/sharp.h:
+
+../Core/Inc/adc.h:
 
 ../Core/Inc/sharp.h:

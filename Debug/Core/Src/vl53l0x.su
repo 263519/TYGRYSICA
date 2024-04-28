@@ -1,2 +1,4 @@
-vl53l0x.c:23:6:VL53L0X_Init	16	static
-vl53l0x.c:67:6:VL53L0X_MeasureDistance	16	static
+vl53l0x.c:35:6:VL53L0X_Init	16	static
+vl53l0x.c:79:6:VL53L0X_Init2	16	static
+vl53l0x.c:123:6:VL53L0X_MeasureDistance	16	static
+vl53l0x.c:134:6:VL53L0X_MeasureDistance2	16	static

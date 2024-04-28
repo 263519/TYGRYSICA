@@ -16,6 +16,8 @@
 
 void VL53L0X_Init();
 void VL53L0X_MeasureDistance(int *distance);
+void VL53L0X_Init2();
+void VL53L0X_MeasureDistance2(int *distance);
 
 
 #endif /* INC_VL53L0X_H_ */

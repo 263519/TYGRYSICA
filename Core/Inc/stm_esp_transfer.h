@@ -12,6 +12,7 @@
 #include <string.h>
 #include "usart.h"
 #include "mpu6050.h"
+#include "sharp.h"
 
 typedef struct {
 	float roll;
@@ -19,6 +20,7 @@ typedef struct {
 	uint16_t sharp_distance;
 	int tof1_distance;
 	int tof2_distance;
+	int16_t speed1;
 
 
 }msg_t;

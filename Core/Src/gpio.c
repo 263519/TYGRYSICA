@@ -53,8 +53,7 @@ void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, DIR_MOTOR1_A_Pin|DIR_MOTOR1_B_Pin|ENC2_B_Pin|SHIFT_CLK_Pin
                           |SHIFT_SER_Pin|SHIFT_LATCH_Pin|XSHUT_TOF1_Pin|XSHUT_TOF2_Pin
-                          |DIR_MOTOR2_A_Pin|DIR_MOTOR2_B_Pin|ENC1_A_Pin|ENC1_B_Pin
-                          |ENC2_A_Pin, GPIO_PIN_RESET);
+                          |DIR_MOTOR2_B_Pin|ENC1_A_Pin|ENC1_B_Pin|ENC2_A_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : PtPin */
   GPIO_InitStruct.Pin = B1_Pin;
@@ -77,12 +76,10 @@ void MX_GPIO_Init(void)
 
   /*Configure GPIO pins : PBPin PBPin PBPin PBPin
                            PBPin PBPin PBPin PBPin
-                           PBPin PBPin PBPin PBPin
-                           PBPin */
+                           PBPin PBPin PBPin */
   GPIO_InitStruct.Pin = DIR_MOTOR1_A_Pin|DIR_MOTOR1_B_Pin|ENC2_B_Pin|SHIFT_CLK_Pin
                           |SHIFT_SER_Pin|SHIFT_LATCH_Pin|XSHUT_TOF1_Pin|XSHUT_TOF2_Pin
-                          |DIR_MOTOR2_A_Pin|DIR_MOTOR2_B_Pin|ENC1_A_Pin|ENC1_B_Pin
-                          |ENC2_A_Pin;
+                          |DIR_MOTOR2_B_Pin|ENC1_B_Pin|ENC2_A_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -93,6 +90,13 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GYRO_INT_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PtPin */
+  GPIO_InitStruct.Pin = ENC1_A_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(ENC1_A_GPIO_Port, &GPIO_InitStruct);
 
 }
 
