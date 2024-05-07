@@ -1,3 +1,6 @@
 motor.c:10:6:MOTOR1_init	8	static
-motor.c:16:6:MOTOR1_set_dir	16	static
-motor.c:28:6:MOTOR1_set_speed	16	static
+motor.c:17:6:MOTOR1_set_dir	16	static
+motor.c:29:6:MOTOR1_set_speed	16	static
+motor.c:38:6:MOTOR2_init	8	static
+motor.c:45:6:MOTOR2_set_dir	16	static
+motor.c:57:6:MOTOR2_set_speed	16	static

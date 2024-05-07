@@ -20,6 +20,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "adc.h"
+#include "dma.h"
 #include "i2c.h"
 #include "tim.h"
 #include "usart.h"
@@ -32,7 +33,9 @@
 #include "mpu6050.h"
 #include "stm_esp_transfer.h"
 #include "sharp.h"
+
 #include <stdlib.h>
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -56,6 +59,7 @@ float acc_x, acc_y, acc_z, gyr_x, gyr_y, gyr_z,r,p;
 
 int16_t a_x, a_y, a_z;
 int tof2_distance;
+
 volatile uint16_t adc_value;
 volatile int adc_flag;
 uint16_t sharp;
@@ -63,6 +67,11 @@ float roll;
 float pitch;
 
 
+
+
+uint8_t xd=69;
+uint32_t adc_measurement;
+volatile uint32_t distance_cm;
 
 //uint32_t dist;
 
@@ -107,32 +116,53 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_USART2_UART_Init();
   MX_ADC2_Init();
   MX_I2C2_Init();
   MX_I2C3_Init();
   MX_USART3_UART_Init();
   MX_TIM4_Init();
+  MX_TIM2_Init();
+  MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
 
 
   MPU6050_Init();
   VL53L0X_Init();
+
   VL53L0X_Init2();
   HAL_ADC_Start_IT(&hadc2);
-  int speed = 0;
+  MOTOR1_init();
+  MOTOR2_init();
+  uint8_t speed = 0;
 //  HAL_ADC_Start_DMA(&hadc2, &adc_measurement, 1);
 //  HAL_TIM_Base_Start(&htim1);
   //SHARP_Init();
 
+
+  HAL_ADC_Start_IT(&hadc2);
+//  HAL_ADC_Start_DMA(&hadc2, &adc_measurement, 1);
+  HAL_TIM_Base_Start(&htim4);
+
+  //SHARP_Init();
+  HAL_TIM_Encoder_Start(&htim3, TIM_CHANNEL_ALL);
+  HAL_TIM_Encoder_Start(&htim2, TIM_CHANNEL_ALL);
+  	  int  counter_value1 = 0;
+  	  int past_counter_value1 = 0;
+  	  float angle_value1 = 0;
+
+  	  int  counter_value2 = 0;
+  	  	  int past_counter_value2 = 0;
+  	  	  float angle_value2 = 0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  if(speed>500)
-		  speed = 0;
+//	  if(speed>500)
+//		  speed = 0;
 
 	  speed++;
 	 // int temp = msg->sharp_distance;
@@ -162,14 +192,24 @@ int main(void)
 	  HAL_ADC_Start_IT(&hadc2);
 	  msg->sharp_distance=adc_value;
 	  msg->speed1 = speed;
-	  msg_t_SaveData(msg);
-	  msg_t_Transmit(msg);
+
 	  sharp=msg->sharp_distance;
 	  roll=msg->roll;
 	  pitch=msg->pitch;
 //	  printf("jprdl\n");
 
 
+	  msg->encoder1 = angle_value1;
+	  msg->encoder2 = angle_value2;
+
+	  msg_t_SaveData(msg);
+	  msg_t_Transmit(msg);
+
+
+
+//		  MOTOR1_set_speed(speed);
+//		  MOTOR2_set_speed(speed);
+		//  HAL_Delay(10);
 	//  HAL_Delay(1000);
 	  //msg_t_Transmit();
 
@@ -179,6 +219,15 @@ int main(void)
 //  printf("a_x: %fg, a_y: %fg,a_z: %fg\r\n",acc_x, acc_y, acc_z);
 //  MPU6050_ReadAccelerometerRaw(&a_x, &a_y, &a_z);
 
+	  HAL_ADC_Start_IT(&hadc2);
+	  //dist = get_distance();
+	  	//uint16_t xpp = 257;
+	//  printf("Distance: %d\r\n", distance_cm);
+
+
+	  //msg_t_Transmit();
+
+
 //  MPU6050_GetRP(&r, &p);
 //  printf("roll: %f, pitch: %f\r\n",r,p);
 //	  MPU6050_ReadAccelerometerRaw(&gyr_x, &gyr_y, &gyr_z);
@@ -187,6 +236,20 @@ int main(void)
 //	  VL53L0X_MeasureDistance(&tof2_distance);
 //
 //	  HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+
+
+	   	  counter_value1 = TIM2->CNT;
+	   	  if(counter_value1 != past_counter_value1){
+	   		  angle_value1 = (360.0f/(960.0f*2))*((float)counter_value1);
+	   	  }
+	   	  past_counter_value1=counter_value1;
+
+
+	   	 counter_value2 = TIM3->CNT;
+	   		   	  if(counter_value2 != past_counter_value2){
+	   		   		  angle_value2 = (360.0f/(960.0f*2))*((float)counter_value2);
+	   		   	  }
+	   		   	  past_counter_value2=counter_value2;
 
     /* USER CODE END WHILE */
 
@@ -234,12 +297,14 @@ void SystemClock_Config(void)
   }
   PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART2|RCC_PERIPHCLK_USART3
                               |RCC_PERIPHCLK_I2C2|RCC_PERIPHCLK_I2C3
-                              |RCC_PERIPHCLK_ADC12|RCC_PERIPHCLK_TIM34;
+                              |RCC_PERIPHCLK_ADC12|RCC_PERIPHCLK_TIM2
+                              |RCC_PERIPHCLK_TIM34;
   PeriphClkInit.Usart2ClockSelection = RCC_USART2CLKSOURCE_PCLK1;
   PeriphClkInit.Usart3ClockSelection = RCC_USART3CLKSOURCE_PCLK1;
   PeriphClkInit.Adc12ClockSelection = RCC_ADC12PLLCLK_DIV1;
   PeriphClkInit.I2c2ClockSelection = RCC_I2C2CLKSOURCE_HSI;
   PeriphClkInit.I2c3ClockSelection = RCC_I2C3CLKSOURCE_HSI;
+  PeriphClkInit.Tim2ClockSelection = RCC_TIM2CLK_HCLK;
   PeriphClkInit.Tim34ClockSelection = RCC_TIM34CLK_HCLK;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {
@@ -249,10 +314,17 @@ void SystemClock_Config(void)
 
 /* USER CODE BEGIN 4 */
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc) {
+
 	if (hadc == &hadc2) {
 		adc_flag = 1;
 		adc_value = HAL_ADC_GetValue(&hadc2);
 	}
+
+//	if (hadc == &hadc2) {
+//		adc_measurement = 1;
+		distance_cm = HAL_ADC_GetValue(&hadc2);
+//	}
+
 }
 /* USER CODE END 4 */
 

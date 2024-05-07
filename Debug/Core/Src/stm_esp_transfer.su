@@ -1,2 +1,2 @@
-stm_esp_transfer.c:3:6:msg_t_Transmit	56	static
+stm_esp_transfer.c:3:6:msg_t_Transmit	40	static
 stm_esp_transfer.c:15:6:msg_t_SaveData	16	static

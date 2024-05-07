@@ -7,8 +7,8 @@ void msg_t_Transmit(msg_t *msg){
 
 	//HAL_UART_Transmit(&huart2, (uint8_t*)buffer,sizeof(buffer),10);
 //	HAL_UART_Transmit(&huart2, array,sizeof(array),10);
-
-	 printf("%f %f %d %d %d %d\r\n", msg->roll, msg->pitch, msg->sharp_distance, msg->tof1_distance, msg->tof2_distance, msg->speed1);
+	printf("%f %f\r\n",msg->encoder1, msg->encoder2);
+	//printf("%f %f %d %d %d %f %f\r\n", msg->roll, msg->pitch, msg->sharp_distance, msg->tof1_distance, msg->tof2_distance, msg->encoder1, msg->encoder2);
 //	printf("SSa %d, %d, %d\r\n", msg->roll, msg->pitch, msg->sharp_distance, msg->tof1_distance, msg->tof2_distance);
 }
 

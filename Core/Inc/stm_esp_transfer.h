@@ -21,6 +21,8 @@ typedef struct {
 	int tof1_distance;
 	int tof2_distance;
 	int16_t speed1;
+	float encoder1;
+	float encoder2;
 
 
 }msg_t;

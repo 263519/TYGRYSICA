@@ -22,6 +22,9 @@ typedef enum {
 void MOTOR1_init();
 void MOTOR1_set_dir(MOTOR_dir dir);
 void MOTOR1_set_speed(uint8_t speed);
+void MOTOR2_init();
+void MOTOR2_set_dir(MOTOR_dir dir);
+void MOTOR2_set_speed(uint8_t speed);
 
 
 #endif /* INC_MOTOR_H_ */

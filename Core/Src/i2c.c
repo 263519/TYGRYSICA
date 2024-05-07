@@ -100,17 +100,17 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef* i2cHandle)
 
   /* USER CODE END I2C2_MspInit 0 */
 
-    __HAL_RCC_GPIOA_CLK_ENABLE();
+    __HAL_RCC_GPIOF_CLK_ENABLE();
     /**I2C2 GPIO Configuration
-    PA9     ------> I2C2_SCL
-    PA10     ------> I2C2_SDA
+    PF0-OSC_IN     ------> I2C2_SDA
+    PF1-OSC_OUT     ------> I2C2_SCL
     */
-    GPIO_InitStruct.Pin = GYRO_TOF_SCL_Pin|GYRO_TOF_SDA_Pin;
+    GPIO_InitStruct.Pin = GYRO_TOF_SDA_Pin|GYRO_TOF_SCL_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
     GPIO_InitStruct.Pull = GPIO_PULLUP;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
     GPIO_InitStruct.Alternate = GPIO_AF4_I2C2;
-    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+    HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
 
     /* I2C2 clock enable */
     __HAL_RCC_I2C2_CLK_ENABLE();
@@ -164,12 +164,12 @@ void HAL_I2C_MspDeInit(I2C_HandleTypeDef* i2cHandle)
     __HAL_RCC_I2C2_CLK_DISABLE();
 
     /**I2C2 GPIO Configuration
-    PA9     ------> I2C2_SCL
-    PA10     ------> I2C2_SDA
+    PF0-OSC_IN     ------> I2C2_SDA
+    PF1-OSC_OUT     ------> I2C2_SCL
     */
-    HAL_GPIO_DeInit(GYRO_TOF_SCL_GPIO_Port, GYRO_TOF_SCL_Pin);
-
     HAL_GPIO_DeInit(GYRO_TOF_SDA_GPIO_Port, GYRO_TOF_SDA_Pin);
+
+    HAL_GPIO_DeInit(GYRO_TOF_SCL_GPIO_Port, GYRO_TOF_SCL_Pin);
 
   /* USER CODE BEGIN I2C2_MspDeInit 1 */
 
