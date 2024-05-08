@@ -7,7 +7,7 @@ void msg_t_Transmit(msg_t *msg){
 
 	//HAL_UART_Transmit(&huart2, (uint8_t*)buffer,sizeof(buffer),10);
 //	HAL_UART_Transmit(&huart2, array,sizeof(array),10);
-	printf("%f %f\r\n",msg->encoder1, msg->encoder2);
+	printf("encoder 1,2: %f:%f, x: %f cm y: %f cm, r_ang %frad\r\n",msg->encoder1, msg->encoder2,msg->x , msg->y, msg->angle);
 	//printf("%f %f %d %d %d %f %f\r\n", msg->roll, msg->pitch, msg->sharp_distance, msg->tof1_distance, msg->tof2_distance, msg->encoder1, msg->encoder2);
 //	printf("SSa %d, %d, %d\r\n", msg->roll, msg->pitch, msg->sharp_distance, msg->tof1_distance, msg->tof2_distance);
 }
@@ -24,5 +24,22 @@ void msg_t_SaveData(msg_t *msg){
 	  VL53L0X_MeasureDistance(&tof1_distance);
       msg->tof1_distance = tof1_distance;
 	  msg->tof2_distance = tof2_distance;
+
+}
+
+
+void calculate_position(float *x, float *y, float* angle, msg_t *msg){
+
+	float wheel_diameter = 6.5; // cm
+	float wheel_distance = 20.3; // cm
+
+	float distance_R = (msg->encoder2)*((wheel_diameter*M_PI)/360.0f);
+	float distance_L = (msg->encoder1)*((wheel_diameter*M_PI)/360.0f);
+
+	*angle = (distance_R-distance_L)/wheel_distance;
+	*x = ((distance_R+distance_L)/2)*cos(*angle/2);
+	*y = ((distance_R+distance_L)/2)*sin(*angle/2);
+
+
 
 }

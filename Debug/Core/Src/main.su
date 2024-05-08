@@ -1,4 +1,4 @@
 main.c:95:5:main	40	static
-main.c:265:6:SystemClock_Config	160	static
-main.c:316:6:HAL_ADC_ConvCpltCallback	16	static
-main.c:335:6:Error_Handler	4	static
+main.c:261:6:SystemClock_Config	160	static
+main.c:312:6:HAL_ADC_ConvCpltCallback	16	static
+main.c:331:6:Error_Handler	4	static

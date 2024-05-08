@@ -13,6 +13,7 @@
 #include "usart.h"
 #include "mpu6050.h"
 #include "sharp.h"
+#include "math.h"
 
 typedef struct {
 	float roll;
@@ -24,10 +25,16 @@ typedef struct {
 	float encoder1;
 	float encoder2;
 
+	// do zmiany bedzie
+	float prev_encoder1;
+    float prev_encoder2;
+    float x,y,angle;
+
 
 }msg_t;
 
 void msg_t_Transmit(msg_t *msg);
 void msg_t_SaveData(msg_t *msg);
+void calculate_position(float *x, float *y, float* angle, msg_t *msg);
 
 #endif /* INC_STM_ESP_TRANSFER_H_ */

@@ -146,8 +146,8 @@ int main(void)
   HAL_TIM_Base_Start(&htim4);
 
   //SHARP_Init();
-  HAL_TIM_Encoder_Start(&htim3, TIM_CHANNEL_ALL);
-  HAL_TIM_Encoder_Start(&htim2, TIM_CHANNEL_ALL);
+
+
   	  int  counter_value1 = 0;
   	  int past_counter_value1 = 0;
   	  float angle_value1 = 0;
@@ -199,16 +199,18 @@ int main(void)
 //	  printf("jprdl\n");
 
 
-	  msg->encoder1 = angle_value1;
-	  msg->encoder2 = angle_value2;
+
+	   MOTOR1_read_wheel_angle(&(msg->encoder1));
+	   MOTOR2_read_wheel_angle(&(msg->encoder2));
+	   calculate_position(&(msg->x), &(msg->y),&(msg->angle), msg);
 
 	  msg_t_SaveData(msg);
 	  msg_t_Transmit(msg);
 
 
-
-//		  MOTOR1_set_speed(speed);
-//		  MOTOR2_set_speed(speed);
+//
+//		  MOTOR1_set_speed(150);
+//	  MOTOR2_set_speed(150);
 		//  HAL_Delay(10);
 	//  HAL_Delay(1000);
 	  //msg_t_Transmit();
@@ -238,18 +240,12 @@ int main(void)
 //	  HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
 
 
-	   	  counter_value1 = TIM2->CNT;
-	   	  if(counter_value1 != past_counter_value1){
-	   		  angle_value1 = (360.0f/(960.0f*2))*((float)counter_value1);
-	   	  }
-	   	  past_counter_value1=counter_value1;
 
 
-	   	 counter_value2 = TIM3->CNT;
-	   		   	  if(counter_value2 != past_counter_value2){
-	   		   		  angle_value2 = (360.0f/(960.0f*2))*((float)counter_value2);
-	   		   	  }
-	   		   	  past_counter_value2=counter_value2;
+
+
+HAL_Delay(100);
+
 
     /* USER CODE END WHILE */
 
