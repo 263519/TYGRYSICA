@@ -68,11 +68,11 @@ float pitch;
 
 
 
-
+int speed;
 uint8_t xd=69;
 uint32_t adc_measurement;
 volatile uint32_t distance_cm;
-
+volatile int start_flag;
 //uint32_t dist;
 
 /* USER CODE END PV */
@@ -135,7 +135,7 @@ int main(void)
   HAL_ADC_Start_IT(&hadc2);
   MOTOR1_init();
   MOTOR2_init();
-  uint8_t speed = 0;
+
 //  HAL_ADC_Start_DMA(&hadc2, &adc_measurement, 1);
 //  HAL_TIM_Base_Start(&htim1);
   //SHARP_Init();
@@ -155,6 +155,7 @@ int main(void)
   	  int  counter_value2 = 0;
   	  	  int past_counter_value2 = 0;
   	  	  float angle_value2 = 0;
+  	  	  int i=0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -164,7 +165,7 @@ int main(void)
 //	  if(speed>500)
 //		  speed = 0;
 
-	  speed++;
+	  //speed++;
 	 // int temp = msg->sharp_distance;
 	 // printf("Dip");
 //	  MPU6050_ReadAccelerometerScaled(&acc_x, &acc_y, &acc_z);
@@ -173,8 +174,8 @@ int main(void)
 //	  printf("gyr_x: %f, gyr_y: %f,gyr_z: %f\r\n",gyr_x, gyr_y, gyr_z);
 
 	 // printf("%d", xd);
-//	    if (adc_flag == 1) {
-//	    	adc_flag = 0;
+	    if (adc_flag == 1) {
+	    	adc_flag = 0;
 //	    	//printf( "Zadana wartosc to : %d\n" , dac_value);
 //   printf( "Zmierzona wartosc to : %d\r\n" , adc_value);
 //
@@ -189,63 +190,74 @@ int main(void)
 //	  msg_t_Transmit(&msg);
 //      HAL_Delay(300);
 	  //dist = get_distance();
-	  HAL_ADC_Start_IT(&hadc2);
-	  msg->sharp_distance=adc_value;
-	  msg->speed1 = speed;
 
-	  sharp=msg->sharp_distance;
-	  roll=msg->roll;
-	  pitch=msg->pitch;
-//	  printf("jprdl\n");
+	 // if(start_flag == 1){
+		//  start_flag=0;
+		  HAL_ADC_Start_IT(&hadc2);
+		  msg->sharp_distance=adc_value;
+		//  msg->speed1 = speed;
 
-
-
-	   MOTOR1_read_wheel_angle(&(msg->encoder1));
-	   MOTOR2_read_wheel_angle(&(msg->encoder2));
-	   calculate_position(&(msg->x), &(msg->y),&(msg->angle), msg);
-
-	  msg_t_SaveData(msg);
-	  msg_t_Transmit(msg);
-
-
-//
-//		  MOTOR1_set_speed(150);
-//	  MOTOR2_set_speed(150);
-		//  HAL_Delay(10);
-	//  HAL_Delay(1000);
-	  //msg_t_Transmit();
-
-
-	// msg_t_Transmit(&msg);
-//  MPU6050_ReadAccelerometerScaled(&acc_x, &acc_y, &acc_z);
-//  printf("a_x: %fg, a_y: %fg,a_z: %fg\r\n",acc_x, acc_y, acc_z);
-//  MPU6050_ReadAccelerometerRaw(&a_x, &a_y, &a_z);
-
-	  HAL_ADC_Start_IT(&hadc2);
-	  //dist = get_distance();
-	  	//uint16_t xpp = 257;
-	//  printf("Distance: %d\r\n", distance_cm);
-
-
-	  //msg_t_Transmit();
-
-
-//  MPU6050_GetRP(&r, &p);
-//  printf("roll: %f, pitch: %f\r\n",r,p);
-//	  MPU6050_ReadAccelerometerRaw(&gyr_x, &gyr_y, &gyr_z);
-//	  printf("gyr_x: %d, gyr_y: %d,gyr_z: %d\r\n",gyr_x, gyr_y, gyr_z);
-
-//	  VL53L0X_MeasureDistance(&tof2_distance);
-//
-//	  HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+		  sharp=msg->sharp_distance;
+		  roll=msg->roll;
+		  pitch=msg->pitch;
+	//	  printf("jprdl\n");
 
 
 
+		   MOTOR1_read_wheel_angle(&(msg->encoder1));
+		   MOTOR2_read_wheel_angle(&(msg->encoder2));
+		   calculate_position(&(msg->x), &(msg->y),&(msg->angle), msg);
+
+		  msg_t_SaveData(msg);
+		  msg_t_Transmit(msg);
+		  MOTOR1_set_speed(599);
+		  MOTOR2_set_speed(699);
+
+		//  HAL_Delay(2000);
+//		  MOTOR1_set_speed(0);
+//		  MOTOR2_set_speed(0);
+		//  HAL_Delay(400000000000);
+		 // printf("xpp\r\n");
+
+	//
+	//		  MOTOR1_set_speed(150);
+	//	  MOTOR2_set_speed(150);
+			//  HAL_Delay(10);
+		//  HAL_Delay(1000);
+		  //msg_t_Transmit();
 
 
+		// msg_t_Transmit(&msg);
+	//  MPU6050_ReadAccelerometerScaled(&acc_x, &acc_y, &acc_z);
+	//  printf("a_x: %fg, a_y: %fg,a_z: %fg\r\n",acc_x, acc_y, acc_z);
+	//  MPU6050_ReadAccelerometerRaw(&a_x, &a_y, &a_z);
 
-HAL_Delay(100);
+		  HAL_ADC_Start_IT(&hadc2);
+		  //dist = get_distance();
+			//uint16_t xpp = 257;
+		//  printf("Distance: %d\r\n", distance_cm);
 
+
+		  //msg_t_Transmit();
+
+
+	//  MPU6050_GetRP(&r, &p);
+	//  printf("roll: %f, pitch: %f\r\n",r,p);
+	//	  MPU6050_ReadAccelerometerRaw(&gyr_x, &gyr_y, &gyr_z);
+	//	  printf("gyr_x: %d, gyr_y: %d,gyr_z: %d\r\n",gyr_x, gyr_y, gyr_z);
+
+	//	  VL53L0X_MeasureDistance(&tof2_distance);
+	//
+	//	  HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+
+i++;
+
+  if(i>15){
+		  MOTOR1_set_speed(0);
+		 		  MOTOR2_set_speed(0);
+  }
+
+	  }
 
     /* USER CODE END WHILE */
 
@@ -322,6 +334,15 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc) {
 //	}
 
 }
+
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+  if (GPIO_Pin == B1_Pin) {
+    start_flag=1;
+  }
+}
+
 /* USER CODE END 4 */
 
 /**
