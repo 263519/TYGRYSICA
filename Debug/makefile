@@ -48,8 +48,8 @@ ciach.bin \
 all: ciach.elf secondary-outputs
 
 # Tool invocations
-ciach.elf: $(OBJS) $(USER_OBJS) C:\Users\szych\STM32CubeIDE\workspace_1.4.0\ciach\STM32F303RETX_FLASH.ld
-	arm-none-eabi-gcc -o "ciach.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\szych\STM32CubeIDE\workspace_1.4.0\ciach\STM32F303RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ciach.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+ciach.elf: $(OBJS) $(USER_OBJS) C:\Users\ADMIN\STM32CubeIDE\workspace_1.4.0\ciach\STM32F303RETX_FLASH.ld
+	arm-none-eabi-gcc -o "ciach.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\ADMIN\STM32CubeIDE\workspace_1.4.0\ciach\STM32F303RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ciach.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

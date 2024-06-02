@@ -2,7 +2,7 @@
  * sharp.h
  *
  *  Created on: Apr 22, 2024
- *      Author: ADMIN
+ *      Authors: Szymon Wesołowski, Michał Suski
  */
 
 #ifndef INC_SHARP_H_

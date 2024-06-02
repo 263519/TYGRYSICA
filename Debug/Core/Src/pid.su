@@ -1,0 +1,2 @@
+pid.c:16:6:pid_init	24	static
+pid.c:23:6:pid_calc	64	static

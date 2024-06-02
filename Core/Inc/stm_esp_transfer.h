@@ -29,10 +29,12 @@ typedef struct {
 	float prev_encoder1;
     float prev_encoder2;
     float x,y,angle;
+    float prev_angle;
 
 
 }msg_t;
 
+void msg_t_Init(msg_t *msg);
 void msg_t_Transmit(msg_t *msg);
 void msg_t_SaveData(msg_t *msg);
 void calculate_position(float *x, float *y, float* angle, msg_t *msg);
