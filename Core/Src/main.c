@@ -144,6 +144,7 @@ int main(void)
     int i = 0;
     msg->encoder1 = 0;
     msg->encoder2 = 0;
+    pid_init(pid, 400,100,40);
     /* USER CODE END 2 */
 
     /* Infinite loop */
@@ -156,12 +157,12 @@ int main(void)
 			MOTOR1_read_wheel_angle(&(msg->encoder1), motor);
 			MOTOR2_read_wheel_angle(&(msg->encoder2), motor);
 			calculate_position(&(msg->x), &(msg->y),&(msg->angle), msg);
-			printf("%f     %d     %f     %d\r\n", (msg->encoder2), TIM3->CNT, (msg->encoder1), TIM2->CNT);
+			//printf("%f     %d     %f     %d\r\n", (msg->encoder2), TIM3->CNT, (msg->encoder1), TIM2->CNT);
 
 			 msg_t_SaveData(msg);
 
              msg_t_Transmit(msg);
-          pid_calc(pid, 0, 0.4, msg,motor);
+          pid_calc(pid, -0.5, 0.5, msg,motor);
   //       HAL_Delay(100);
 //             MOTOR1_set_speed(299, motor);
 //             MOTOR2_set_speed(299, motor);

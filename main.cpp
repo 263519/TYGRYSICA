@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 #include <WiFi.h>
  
 
@@ -47,7 +47,7 @@ void loop()
  
     delay(10000);
 }
-=======
+
 #include <WiFi.h>
  
 

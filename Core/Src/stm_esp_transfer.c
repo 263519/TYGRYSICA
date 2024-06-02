@@ -74,11 +74,11 @@ void calculate_position(float *x, float *y, float* angle, msg_t *msg){
 	float distance_L = (msg->encoder1-msg->prev_encoder1)*((wheel_diameter*M_PI)/360.0f);
 
 	float angle_change = (distance_R-distance_L)/wheel_distance;
+
+	*x += ((distance_R+distance_L)/2)*cos(*angle + angle_change/2)/100;
+	*y += ((distance_R+distance_L)/2)*sin(*angle + angle_change/2)/100;
+
 	*angle += angle_change;
-	*y+= ((distance_R+distance_L)/2)*cos(angle_change/2)/100;
-	*x += ((distance_R+distance_L)/2)*sin(angle_change/2)/100;
-
-
 	*angle = fmod(*angle, 2 * M_PI);
 	msg->prev_encoder1=msg->encoder1;
 	msg->prev_encoder2=msg->encoder2;
