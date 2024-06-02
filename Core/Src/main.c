@@ -161,7 +161,7 @@ int main(void)
 			 msg_t_SaveData(msg);
 
              msg_t_Transmit(msg);
-          pid_calc(pid, 0, 0.7, msg,motor);
+          pid_calc(pid, 0, 0.4, msg,motor);
   //       HAL_Delay(100);
 //             MOTOR1_set_speed(299, motor);
 //             MOTOR2_set_speed(299, motor);
