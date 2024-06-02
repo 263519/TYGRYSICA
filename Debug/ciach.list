@@ -2067,7 +2067,7 @@ int main(void)
              msg_t_Transmit(msg);
  800131a:	6a78      	ldr	r0, [r7, #36]	; 0x24
  800131c:	f000 fda8 	bl	8001e70 <msg_t_Transmit>
-          pid_calc(pid, 0, 0.7, msg,motor);
+          pid_calc(pid, 0, 0.4, msg,motor);
  8001320:	69fa      	ldr	r2, [r7, #28]
  8001322:	6a79      	ldr	r1, [r7, #36]	; 0x24
  8001324:	eddf 0a08 	vldr	s1, [pc, #32]	; 8001348 <main+0x160>
@@ -2081,7 +2081,7 @@ int main(void)
  800133c:	20000640 	.word	0x20000640
  8001340:	40000400 	.word	0x40000400
  8001344:	08013f40 	.word	0x08013f40
- 8001348:	3f333333 	.word	0x3f333333
+ 8001348:	3ecccccd 	.word	0x3ecccccd
  800134c:	00000000 	.word	0x00000000
 
 08001350 <SystemClock_Config>:
