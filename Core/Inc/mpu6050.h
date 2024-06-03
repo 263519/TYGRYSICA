@@ -57,8 +57,8 @@ void MPU6050_ReadGyrscopeRaw(int16_t *x, int16_t *y, int16_t *z);
 void MPU6050_ReadGyroscopeScaled(float *x, float *y, float *z);
 void MPU6050_ReadAccelerometerScaled(float *x, float *y, float *z);
 void MPU6050_GetRP(float *r, float *p);
-
-
+void MPU66050_Complementary(float gyro, float acc, float *wynikCompl);
+void MPU66050_GetComplementary(float *compl);
 
 
 

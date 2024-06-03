@@ -117,8 +117,32 @@ void MPU6050_GetRP(float *r, float *p){
 	*p = -(atan2(a_x, sqrt(a_y*a_y + a_z*a_z)) * 180.0) / M_PI;
 
 	*r+=180;
+}
 
+void MPU66050_Complementary(float gyro, float acc, float *wynikCompl){
+	float alp = 0.98;
+	float dt = 0.01;
 
+	float wynik = 0.0;
+	int start = 1;
+
+	if(start){
+		wynik = acc;
+		start = 0;
+	}
+
+	wynik = alp*(wynik + gyro*dt) + (1 - alp)*acc;
+
+	*wynikCompl = wynik;
+}
+
+void MPU66050_GetComplementary(float *compl){
+	float X, Y, Z;
+	MPU6050_ReadGyroscopeScaled(&Z, &X, &Y);
+
+	float accAng = atan2(Y, X)*180 / M_PI;
+
+	MPU66050_Complementary(Z, accAng, compl);
 }
 
 
